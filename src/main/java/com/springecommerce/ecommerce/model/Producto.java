@@ -23,8 +23,7 @@ public class Producto {
     private double precio;
     @Getter @Setter
     private int cantidad;
-    @ManyToOne
-    @Getter @Setter
+    @ManyToOne @Getter @Setter
     private Usuario usuario;
 
     public Producto() {}
