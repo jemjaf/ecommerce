@@ -9,7 +9,8 @@ import java.util.List;
 @Entity
 @Table(name = "productos")
 public class Producto {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
     private Integer id;
     @Getter @Setter
@@ -19,7 +20,7 @@ public class Producto {
     @Getter @Setter
     private String imagen;
     @Getter @Setter
-    private Double precio;
+    private double precio;
     @Getter @Setter
     private int cantidad;
     @ManyToOne
@@ -30,6 +31,7 @@ public class Producto {
 
     public Producto(Integer id, String nombre, String descripcion, String imagen,
                     Double precio, int cantidad, Usuario usuario) {
+        super();
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;

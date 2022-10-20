@@ -8,27 +8,27 @@ import javax.persistence.*;
 @Entity
 @Table(name = "detalles")
 public class DetalleOrden {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
     private Integer id;
     @Getter @Setter
     private String nombre;
     @Getter @Setter
-    private Double cantidad;
+    private double cantidad;
     @Getter @Setter
-    private Double precio;
+    private double precio;
     @Getter @Setter
-    private Double total;
-    @OneToOne
-    @Getter @Setter
+    private double total;
+    @Getter @Setter @ManyToOne
     private Orden orden;
-    @OneToOne
-    @Getter @Setter
+    @Getter @Setter @ManyToOne
     private Producto producto;
     public DetalleOrden(){}
 
     public DetalleOrden(Integer id, String nombre, Double cantidad,
                         Double precio, Double total) {
+        super();
         this.id = id;
         this.nombre = nombre;
         this.cantidad = cantidad;

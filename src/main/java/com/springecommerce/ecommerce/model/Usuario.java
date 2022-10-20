@@ -27,12 +27,10 @@ public class Usuario {
     @Getter @Setter
     private String password;
 
-    @Getter @Setter
-    @OneToMany(mappedBy = "usuario")
+    @Getter @Setter @OneToMany(mappedBy = "usuario")
     private List<Producto> productos;
 
-    @Getter @Setter
-    @OneToMany(mappedBy = "usuario")
+    @Getter @Setter @OneToMany(mappedBy = "usuario")
     private List<Orden> ordenes;
 
     public Usuario(){}
@@ -40,6 +38,7 @@ public class Usuario {
     public Usuario(Integer id, String nombre, String username,
                    String email, String direccion, String telefono,
                    String tipo, String password) {
+        super();
         this.id = id;
         this.nombre = nombre;
         this.username = username;

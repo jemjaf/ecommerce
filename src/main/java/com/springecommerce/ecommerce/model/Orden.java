@@ -5,11 +5,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "ordenes")
 public class Orden {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
     private Integer id;
     @Getter @Setter
@@ -19,16 +21,16 @@ public class Orden {
     @Getter @Setter
     private Date fechaRecibida;
     @Getter @Setter
-    private Double total;
+    private double total;
     @Getter @Setter @ManyToOne
     private Usuario usuario;
-    @OneToOne(mappedBy = "orden")
-    @Getter @Setter
-    private DetalleOrden detalle;
+    @Getter @Setter @OneToMany(mappedBy = "orden")
+    private List<DetalleOrden> detalle;
 
     public Orden(){}
 
     public Orden(Integer id, String numero, Date fechaCreacion, Date fechaRecibida, Double total, Usuario usuario) {
+        super();
         this.id = id;
         this.numero = numero;
         this.fechaCreacion = fechaCreacion;
