@@ -3,7 +3,12 @@ package com.springecommerce.ecommerce.model;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "detalles")
 public class DetalleOrden {
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter @Setter
     private Integer id;
     @Getter @Setter
@@ -14,7 +19,12 @@ public class DetalleOrden {
     private Double precio;
     @Getter @Setter
     private Double total;
-
+    @OneToOne
+    @Getter @Setter
+    private Orden orden;
+    @OneToOne
+    @Getter @Setter
+    private Producto producto;
     public DetalleOrden(){}
 
     public DetalleOrden(Integer id, String nombre, Double cantidad,
