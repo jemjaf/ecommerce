@@ -70,7 +70,11 @@
     </div>
 
     <div class="form-group">
-      <label  class="control-label col-sm-2" for="img">Imagen:</label>
+      <div>
+        <label  class="control-label col-sm-8" >Imagen Actual:</label>
+          <img th:src="@{/../../../../images/{imagen} (imagen = ${producto.imagen})}" alt="">
+      </div>
+      <label  class="control-label col-sm-8" for="img">Subir Imagen:</label>
       <div class="col-sm-10">
         <input type="file" class="form-control-file" id="img" name="img">
       </div>
