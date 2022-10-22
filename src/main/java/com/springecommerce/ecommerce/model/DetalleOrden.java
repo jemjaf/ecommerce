@@ -15,7 +15,7 @@ public class DetalleOrden {
     @Getter @Setter
     private String nombre;
     @Getter @Setter
-    private double cantidad;
+    private Integer cantidad;
     @Getter @Setter
     private double precio;
     @Getter @Setter
@@ -26,7 +26,7 @@ public class DetalleOrden {
     private Producto producto;
     public DetalleOrden(){}
 
-    public DetalleOrden(Integer id, String nombre, Double cantidad,
+    public DetalleOrden(Integer id, String nombre, Integer cantidad,
                         Double precio, Double total) {
         super();
         this.id = id;
