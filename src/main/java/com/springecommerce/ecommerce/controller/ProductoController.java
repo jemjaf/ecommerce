@@ -28,7 +28,7 @@ public class ProductoController {
 
     @GetMapping("")
     public String show(Model model){
-        model.addAttribute("Productos",productoService.finAll());
+        model.addAttribute("productos",productoService.finAll());
         return "productos/show";
     }
 
@@ -78,6 +78,8 @@ public class ProductoController {
             String nombreImagen = upload.saveImage(file);
             producto.setImagen(nombreImagen);
         }
+
+        producto.setUsuario(p.getUsuario());
         productoService.update(producto);
         return "redirect:/productos";
     }

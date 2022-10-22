@@ -16,7 +16,7 @@
   <!-- Custom styles for this template -->
   <link th:href="@{/css/heroic-features.css}" rel="stylesheet">
 
-  <link rel="icon" th:href="@{/images/icon.ico}">
+  <link rel="icon" th:href="@{/imagenes/icon.ico}">
 
 </head>
 
@@ -71,10 +71,10 @@
 
     <div class="form-group">
       <div>
-        <label  class="control-label col-sm-8" >Imagen Actual:</label>
-          <img th:src="@{/../../../../images/{imagen} (imagen = ${producto.imagen})}" alt="">
+        <label  class="control-label col-sm-10" >Imagen Actual:</label>
+            <img th:src="@{/images/{img} (img = ${producto.imagen})}" alt="">
       </div>
-      <label  class="control-label col-sm-8" for="img">Subir Imagen:</label>
+      <label  class="control-label col-sm-10" for="img">Subir Imagen:</label>
       <div class="col-sm-10">
         <input type="file" class="form-control-file" id="img" name="img">
       </div>
