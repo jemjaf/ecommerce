@@ -56,7 +56,14 @@ public class HomeController {
         detalleOrden.setTotal(producto.getPrecio()*cantidad);
         detalleOrden.setProducto(producto);
 
-        detalles.add(detalleOrden);
+        //No repetir productos
+        Integer idProducto=producto.getId();
+        boolean existeProducto = detalles.stream().anyMatch(p -> p.getProducto().getId()==idProducto);
+
+        if (!existeProducto) {
+            detalles.add(detalleOrden);
+        }
+
 
         total = detalles.stream().mapToDouble(dt-> dt.getTotal()).sum();
         orden.setTotal(total);
@@ -66,5 +73,84 @@ public class HomeController {
 
         return "usuario/carrito";
     }
+
+    @GetMapping("/putcart/{id}")
+    public String putCart(@PathVariable Integer id, Model model){
+
+        List<DetalleOrden> ordenesNuevas = new ArrayList<DetalleOrden>();
+
+        for (DetalleOrden detalleOrden : detalles){
+            if (detalleOrden.getProducto().getId()!=id){
+                ordenesNuevas.add(detalleOrden);
+            }
+        }
+        detalles = ordenesNuevas;
+
+        double total =0;
+        total = detalles.stream().mapToDouble(dt -> dt.getTotal()).sum();
+        orden.setTotal(total);
+
+        model.addAttribute("carrito", detalles);
+        model.addAttribute("orden", orden);
+
+        return "usuario/carrito";
+    }
+
+    @GetMapping("/getCarrito")
+    public String getCarrito(Model model) {
+
+        model.addAttribute("carrito", detalles);
+        model.addAttribute("orden", orden);
+
+        //sesion
+        //model.addAttribute("sesion", session.getAttribute("idusuario"));
+        return "usuario/carrito";
+    }
+//
+//    @GetMapping("/order")
+//    public String order(Model model, HttpSession session) {
+
+//        Usuario usuario =usuarioService.findById( Integer.parseInt(session.getAttribute("idusuario").toString())).get();
+//
+//        model.addAttribute("cart", detalles);
+//        model.addAttribute("orden", orden);
+//        model.addAttribute("usuario", usuario);
+//
+//        return "usuario/resumenorden";
+//    }
+//
+//    // guardar la orden
+//    @GetMapping("/saveOrder")
+//    public String saveOrder(HttpSession session ) {
+//        Date fechaCreacion = new Date();
+//        orden.setFechaCreacion(fechaCreacion);
+//        orden.setNumero(ordenService.generarNumeroOrden());
+//
+//        //usuario
+//        Usuario usuario =usuarioService.findById( Integer.parseInt(session.getAttribute("idusuario").toString())  ).get();
+//
+//        orden.setUsuario(usuario);
+//        ordenService.save(orden);
+//
+//        //guardar detalles
+//        for (DetalleOrden dt:detalles) {
+//            dt.setOrden(orden);
+//            detalleOrdenService.save(dt);
+//        }
+//
+//        ///limpiar lista y orden
+//        orden = new Orden();
+//        detalles.clear();
+//
+//        return "redirect:/";
+//    }
+//
+//    @PostMapping("/search")
+//    public String searchProduct(@RequestParam String nombre, Model model) {
+//        log.info("Nombre del producto: {}", nombre);
+//        List<Producto> productos= productoService.findAll().stream().filter( p -> p.getNombre().contains(nombre)).collect(Collectors.toList());
+//        model.addAttribute("productos", productos);
+//        return "usuario/home";
+//    }
 
 }
