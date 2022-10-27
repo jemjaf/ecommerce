@@ -106,18 +106,14 @@ public class HomeController {
         //model.addAttribute("sesion", session.getAttribute("idusuario"));
         return "usuario/carrito";
     }
-//
-//    @GetMapping("/order")
-//    public String order(Model model, HttpSession session) {
 
-//        Usuario usuario =usuarioService.findById( Integer.parseInt(session.getAttribute("idusuario").toString())).get();
-//
-//        model.addAttribute("cart", detalles);
-//        model.addAttribute("orden", orden);
-//        model.addAttribute("usuario", usuario);
-//
-//        return "usuario/resumenorden";
-//    }
+    @GetMapping("/orden")
+    public String orden() {
+
+
+
+        return "usuario/resumenorden";
+    }
 //
 //    // guardar la orden
 //    @GetMapping("/saveOrder")
