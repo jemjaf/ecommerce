@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/")
@@ -146,5 +147,11 @@ public class HomeController {
         orden = new Orden();
         detalles.clear();
         return "redirect:/";
+    }
+
+    @PostMapping("/search")
+    public String search(@RequestParam String search, Model model){
+        model.addAttribute("productos", IProductoService.finAll().stream().filter(p -> p.getNombre().contains(search)).collect(Collectors.toList()));
+        return "usuario/home";
     }
 }
