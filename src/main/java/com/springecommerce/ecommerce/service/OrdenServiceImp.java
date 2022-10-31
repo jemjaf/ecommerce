@@ -25,6 +25,7 @@ public class OrdenServiceImp implements IOrdenService {
         return iOrdenRepository.save(orden);
     }
 
+    @Override
     public String generarNumeroOrden(){
         Integer numeroOrden =0;
         String numeroConcat = "";
