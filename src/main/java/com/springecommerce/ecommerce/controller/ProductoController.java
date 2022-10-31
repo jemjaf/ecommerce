@@ -25,17 +25,20 @@ public class ProductoController {
     @Autowired
     private UploadFileService upload;
 
+    //Mantenedor productos
     @GetMapping("")
     public String show(Model model){
         model.addAttribute("productos", IProductoService.finAll());
         return "productos/show";
     }
 
+    //Vista para crear productos
     @GetMapping ("/create")
     public String create(){
         return  "productos/create";
     }
 
+    //Guardar un producto en la bd
     @PostMapping("/save")
     public String save(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
         Usuario u = new Usuario(1,"","","","","","","");
@@ -51,6 +54,7 @@ public class ProductoController {
         return "redirect:/productos";
     }
 
+    //Vista para editar un producto
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model){
         Producto producto = new Producto();
@@ -60,6 +64,7 @@ public class ProductoController {
         return  "productos/edit";
     }
 
+    //Atualizar producto editado
     @PostMapping("/update")
     public String update(Producto producto, @RequestParam("img") MultipartFile file) throws IOException {
 
@@ -83,6 +88,7 @@ public class ProductoController {
         return "redirect:/productos";
     }
 
+    //Eliminar producto y recargar la vista del mantenedor actualizada
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Integer id){
         Producto p = new Producto();

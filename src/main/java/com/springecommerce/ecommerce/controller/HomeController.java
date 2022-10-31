@@ -27,7 +27,7 @@ public class HomeController {
     private final Logger LOGGER = LoggerFactory.getLogger(HomeController.class);
 
     @Autowired
-    private IProductoService IProductoService;
+    private IProductoService iProductoService;
     @Autowired
     private IUsuarioService iUsuarioService;
     @Autowired
@@ -40,20 +40,23 @@ public class HomeController {
 
     Orden orden = new Orden();
 
-    @GetMapping("")
+    //Vista home
+    @GetMapping("/")
     public String Home(Model model){
-        model.addAttribute("productos", IProductoService.finAll());
+        model.addAttribute("productos", iProductoService.finAll());
         return "usuario/home";
     }
 
+    //Vista de un producto en particular
     @GetMapping("/productohome/{id}")
     public String productoHome(Model model ,@PathVariable Integer id){
         Producto producto = new Producto();
-        producto = IProductoService.get(id).get();
+        producto = iProductoService.get(id).get();
         model.addAttribute("producto", producto);
         return  "usuario/productohome";
     }
 
+    //Añadir producto al carrito y mostrar vista del carrito
     @PostMapping("/carrito")
     public String addCart(@RequestParam("id") Integer id, @RequestParam("cantidad") Integer cantidad, Model model){
 
@@ -61,7 +64,7 @@ public class HomeController {
         Producto producto = new Producto();
         double total = 0;
 
-        producto = IProductoService.get(id).get();
+        producto = iProductoService.get(id).get();
         detalleOrden.setNombre(producto.getNombre());
         detalleOrden.setCantidad(cantidad);
         detalleOrden.setPrecio(producto.getPrecio());
@@ -86,6 +89,7 @@ public class HomeController {
         return "usuario/carrito";
     }
 
+    //Quitar producto del carrito
     @GetMapping("/putcart/{id}")
     public String putCart(@PathVariable Integer id, Model model){
 
@@ -108,6 +112,7 @@ public class HomeController {
         return "usuario/carrito";
     }
 
+    //Mostrar el carrito
     @GetMapping("/getCarrito")
     public String getCarrito(Model model) {
 
@@ -117,6 +122,7 @@ public class HomeController {
         return "usuario/carrito";
     }
 
+    //Mostrar el resumen de la orden
     @GetMapping("/orden")
     public String orden(Model model) {
 
@@ -128,6 +134,7 @@ public class HomeController {
         return "usuario/resumenorden";
     }
 
+    //Guardar la orden y sus detalles en la bd
     @GetMapping("/saveorden")
     public  String saveOrden(){
 
@@ -149,9 +156,10 @@ public class HomeController {
         return "redirect:/";
     }
 
+    //Caja de texto para buscar productos
     @PostMapping("/search")
     public String search(@RequestParam String search, Model model){
-        model.addAttribute("productos", IProductoService.finAll().stream().filter(p -> p.getNombre().contains(search)).collect(Collectors.toList()));
+        model.addAttribute("productos", iProductoService.finAll().stream().filter(p -> p.getNombre().contains(search)).collect(Collectors.toList()));
         return "usuario/home";
     }
 }

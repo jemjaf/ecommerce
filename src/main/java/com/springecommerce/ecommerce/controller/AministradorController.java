@@ -14,6 +14,8 @@ import java.util.List;
 public class AministradorController {
     @Autowired
     private IProductoService IProductoService;
+
+    //Vista de los productos
     @GetMapping("")
     public String Home(Model model){
         List<Producto> productos = IProductoService.finAll();
