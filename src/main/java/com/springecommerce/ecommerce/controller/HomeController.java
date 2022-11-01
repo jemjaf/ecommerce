@@ -44,8 +44,9 @@ public class HomeController {
     //Vista home
     @GetMapping("/")
     public String Home(Model model, HttpSession httpSession){
-        LOGGER.info("Sesion {}", httpSession.getAttribute("idUsuario"));
+
         model.addAttribute("productos", iProductoService.finAll());
+        model.addAttribute("idUsuario", httpSession.getAttribute("idUsuario"));
         return "usuario/home";
     }
 
@@ -116,11 +117,11 @@ public class HomeController {
 
     //Mostrar el carrito
     @GetMapping("/getCarrito")
-    public String getCarrito(Model model) {
+    public String getCarrito(Model model, HttpSession httpSession) {
 
         model.addAttribute("carrito", detalles);
         model.addAttribute("orden", orden);
-
+        model.addAttribute("idUsuario", httpSession.getAttribute("idUsuario"));
         return "usuario/carrito";
     }
 

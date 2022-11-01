@@ -24,7 +24,10 @@
 <body>
 
 <!-- Navigation -->
-<div th:include="usuario/template_usuario.html::header"></div>
+<div th:include="usuario/template_usuario.html::header" th:if="${idUsuario==null}"></div>
+
+<!-- Navigation User   -->
+<div th:include="usuario/template_usuario.html::header-user" th:unless="${idUsuario==null}"></div>
 
 <!-- Page Content -->
 <div class="container">
