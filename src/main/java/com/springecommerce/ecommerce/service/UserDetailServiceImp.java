@@ -2,8 +2,6 @@ package com.springecommerce.ecommerce.service;
 
 
 import com.springecommerce.ecommerce.model.Usuario;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,17 +19,10 @@ public class UserDetailServiceImp implements UserDetailsService {
     @Autowired
     private IUsuarioService iUsuarioService;
 
-//    @Bean
-//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     @Autowired
     HttpSession httpSession;
-
-    private Logger LOGGER = LoggerFactory.getLogger(UserDetailServiceImp.class);
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -41,7 +32,9 @@ public class UserDetailServiceImp implements UserDetailsService {
             httpSession.setAttribute("idUsuario", optionalUsuario.get().getId());
             Usuario user = optionalUsuario.get();
             return User.builder().username(user.getNombre()).password(bCryptPasswordEncoder.encode(user.getPassword())).roles(user.getTipo()).build();
+        }else{
+            throw new UsernameNotFoundException("Usuario no encontrado");
         }
-        return null;
+
     }
 }

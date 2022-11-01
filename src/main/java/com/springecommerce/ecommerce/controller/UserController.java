@@ -1,14 +1,11 @@
 package com.springecommerce.ecommerce.controller;
 
-import com.springecommerce.ecommerce.model.DetalleOrden;
 import com.springecommerce.ecommerce.model.Orden;
 import com.springecommerce.ecommerce.model.Usuario;
-import com.springecommerce.ecommerce.service.IDetalleOrdenService;
 import com.springecommerce.ecommerce.service.IOrdenService;
 import com.springecommerce.ecommerce.service.IUsuarioService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,16 +21,13 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
 
-    private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-
     @Autowired
     private IUsuarioService iUsuarioService;
 
     @Autowired
     private IOrdenService iOrdenService;
 
-    @Autowired
-    private IDetalleOrdenService iDetalleOrdenService;
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     //Mostrar Vista Registarse
     @GetMapping("/register")
@@ -45,6 +39,7 @@ public class UserController {
     @PostMapping("/save")
     public String save(Usuario usuario){
         usuario.setTipo("USER");
+        usuario.setPassword(bCryptPasswordEncoder.encode(usuario.getPassword()));
         iUsuarioService.save(usuario);
         return "redirect:/";
     }
@@ -68,10 +63,7 @@ public class UserController {
             }else{
                 return "redirect:/";
             }
-        }else{
-            LOGGER.info("F mano, no estás en lista");
         }
-
         return "redirect:/";
     }
 

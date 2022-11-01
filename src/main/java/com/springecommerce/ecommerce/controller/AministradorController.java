@@ -27,6 +27,14 @@ public class AministradorController {
     @Autowired
     private IOrdenService iOrdenService;
 
+    @GetMapping("/login")
+    public String inicio(Model model){
+        List<Producto> productos = iProductoService.finAll();
+
+        model.addAttribute("productos", productos);
+        return "administrador/home";
+    }
+
     //Vista de los productos
     @GetMapping("")
     public String productos(Model model){
