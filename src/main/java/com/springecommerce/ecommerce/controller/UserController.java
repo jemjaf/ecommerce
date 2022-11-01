@@ -1,7 +1,9 @@
 package com.springecommerce.ecommerce.controller;
 
+import com.springecommerce.ecommerce.model.DetalleOrden;
 import com.springecommerce.ecommerce.model.Orden;
 import com.springecommerce.ecommerce.model.Usuario;
+import com.springecommerce.ecommerce.service.IDetalleOrdenService;
 import com.springecommerce.ecommerce.service.IOrdenService;
 import com.springecommerce.ecommerce.service.IUsuarioService;
 import org.slf4j.Logger;
@@ -10,10 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,6 +32,9 @@ public class UserController {
 
     @Autowired
     private IOrdenService iOrdenService;
+
+    @Autowired
+    private IDetalleOrdenService iDetalleOrdenService;
 
     //Mostrar Vista Registarse
     @GetMapping("/register")
@@ -74,10 +81,19 @@ public class UserController {
         Usuario user = iUsuarioService.findById(Integer.parseInt(httpSession.getAttribute("idUsuario").toString())).get();
         List<Orden> ordenes =  iOrdenService.findByUsuario(user);
 
-
-
         model.addAttribute("ordenes", ordenes);
         model.addAttribute("idUsuario", httpSession.getAttribute("idUsuario"));
         return "usuario/compras";
+    }
+
+    @GetMapping("/detalle/{idOrden}")
+    public String detalle(@PathVariable Integer idOrden, Model model, HttpSession httpSession){
+        Orden orden = iOrdenService.findById(idOrden).get();
+
+        model.addAttribute("detalles", orden.getDetalle());
+        model.addAttribute("idUsuario", httpSession.getAttribute("idUsuario"));
+
+        return "usuario/detallecompra";
+
     }
 }

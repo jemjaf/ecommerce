@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrdenServiceImp implements IOrdenService {
@@ -18,6 +19,11 @@ public class OrdenServiceImp implements IOrdenService {
     @Override
     public List<Orden> findAll() {
         return iOrdenRepository.findAll();
+    }
+
+    @Override
+    public Optional<Orden> findById(Integer id) {
+        return iOrdenRepository.findById(id);
     }
 
     @Override
