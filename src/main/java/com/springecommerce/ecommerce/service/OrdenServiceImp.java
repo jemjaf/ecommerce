@@ -1,6 +1,7 @@
 package com.springecommerce.ecommerce.service;
 
 import com.springecommerce.ecommerce.model.Orden;
+import com.springecommerce.ecommerce.model.Usuario;
 import com.springecommerce.ecommerce.repository.IOrdenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,5 +49,10 @@ public class OrdenServiceImp implements IOrdenService {
         }
 
         return numeroConcat;
+    }
+
+    @Override
+    public List<Orden> findByUsuario(Usuario usuario) {
+        return iOrdenRepository.findByUsuario(usuario);
     }
 }
