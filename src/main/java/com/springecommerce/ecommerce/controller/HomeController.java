@@ -165,4 +165,6 @@ public class HomeController {
         model.addAttribute("productos", iProductoService.finAll().stream().filter(p -> p.getNombre().contains(search)).collect(Collectors.toList()));
         return "usuario/home";
     }
+
+
 }
