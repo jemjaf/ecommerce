@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Optional;
 
@@ -95,5 +94,11 @@ public class UserController {
 
         return "usuario/detallecompra";
 
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession httpSession){
+        httpSession.removeAttribute("idUsuario");
+        return "redirect:/";
     }
 }
