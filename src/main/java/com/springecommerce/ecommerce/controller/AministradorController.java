@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller @RequestMapping("/administrador")
@@ -27,18 +26,10 @@ public class AministradorController {
     @Autowired
     private IOrdenService iOrdenService;
 
-    @GetMapping("/login")
-    public String inicio(Model model){
-        List<Producto> productos = iProductoService.finAll();
-
-        model.addAttribute("productos", productos);
-        return "administrador/home";
-    }
-
     //Vista de los productos
     @GetMapping("")
     public String productos(Model model){
-        List<Producto> productos = iProductoService.finAll();
+        List<Producto> productos = iProductoService.findAll();
 
         model.addAttribute("productos", productos);
         return "administrador/home";
@@ -50,6 +41,13 @@ public class AministradorController {
 
         model.addAttribute("usuarios", usuarios);
         return "administrador/usuarios";
+    }
+
+    @GetMapping("/productos")
+    public String Crudproductos(Model model){
+        model.addAttribute("productos", iProductoService.findAll());
+
+        return "productos/show";
     }
 
     @GetMapping("/orders")

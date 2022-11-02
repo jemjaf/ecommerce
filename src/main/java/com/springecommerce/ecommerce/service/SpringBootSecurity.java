@@ -30,9 +30,11 @@ public class SpringBootSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
-                .antMatchers("/administrador/**").hasRole("ADMIN")
-                .antMatchers("/productos/**").hasRole("ADMIN")
+                .antMatchers("/administrador**").hasRole("ADMIN")
+                .antMatchers("/productos*").hasRole("ADMIN")
+                .antMatchers("/").hasRole("USER")
+                .antMatchers("/").permitAll()
                 .and().formLogin().loginPage("/administrador")
-                .permitAll().defaultSuccessUrl("/user/login");
+                .permitAll().defaultSuccessUrl("/");
     }
 }

@@ -45,7 +45,7 @@ public class HomeController {
     @GetMapping("/")
     public String Home(Model model, HttpSession httpSession){
 
-        model.addAttribute("productos", iProductoService.finAll());
+        model.addAttribute("productos", iProductoService.findAll());
         model.addAttribute("idUsuario", httpSession.getAttribute("idUsuario"));
         return "usuario/home";
     }
@@ -162,7 +162,7 @@ public class HomeController {
     //Caja de texto para buscar productos
     @PostMapping("/search")
     public String search(@RequestParam String search, Model model){
-        model.addAttribute("productos", iProductoService.finAll().stream().filter(p -> p.getNombre().contains(search)).collect(Collectors.toList()));
+        model.addAttribute("productos", iProductoService.findAll().stream().filter(p -> p.getNombre().contains(search)).collect(Collectors.toList()));
         return "usuario/home";
     }
 

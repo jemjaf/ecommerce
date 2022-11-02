@@ -35,7 +35,7 @@ public class ProductoServiceImp implements IProductoService {
     }
 
     @Override
-    public List<Producto> finAll() {
+    public List<Producto> findAll() {
         return IProductoRepository.findAll();
     }
 

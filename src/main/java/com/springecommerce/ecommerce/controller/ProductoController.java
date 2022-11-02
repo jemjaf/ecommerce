@@ -32,7 +32,7 @@ public class ProductoController {
     //Mantenedor productos
     @GetMapping("")
     public String show(Model model){
-        model.addAttribute("productos", iProductoService.finAll());
+        model.addAttribute("productos", iProductoService.findAll());
         return "productos/show";
     }
 

@@ -8,10 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -52,8 +49,8 @@ public class UserController {
 
     //Iniciar sesión
     @PostMapping("/login")
-    public String login(Usuario usuario, HttpSession httpSession){
-        Optional<Usuario> user = iUsuarioService.findByEmail(usuario.getEmail());
+    public String login(@RequestParam("username") String username, HttpSession httpSession){
+        Optional<Usuario> user = iUsuarioService.findByEmail(username);
         //LOGGER.info("XDDDD {}", user.get());
 
         if (user.isPresent()){
@@ -63,8 +60,9 @@ public class UserController {
             }else{
                 return "redirect:/";
             }
+        }else{
+            return "redirect:/user/viewlogin";
         }
-        return "redirect:/";
     }
 
     @GetMapping("/compras")

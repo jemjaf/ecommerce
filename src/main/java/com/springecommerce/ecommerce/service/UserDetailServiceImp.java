@@ -25,13 +25,15 @@ public class UserDetailServiceImp implements UserDetailsService {
     HttpSession httpSession;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<Usuario> optionalUsuario = iUsuarioService.findByEmail(email);
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Usuario> optionalUsuario = iUsuarioService.findByEmail(username);
 
         if (optionalUsuario.isPresent()){
-            httpSession.setAttribute("idUsuario", optionalUsuario.get().getId());
             Usuario user = optionalUsuario.get();
-            return User.builder().username(user.getNombre()).password(bCryptPasswordEncoder.encode(user.getPassword())).roles(user.getTipo()).build();
+            httpSession.setAttribute("idUsuario", user.getId());
+
+            return User.builder().username(user.getEmail()).password(user.getPassword())
+                    .roles(user.getTipo()).build();
         }else{
             throw new UsernameNotFoundException("Usuario no encontrado");
         }
