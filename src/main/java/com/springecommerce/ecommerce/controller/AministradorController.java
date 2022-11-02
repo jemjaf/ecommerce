@@ -35,6 +35,7 @@ public class AministradorController {
         return "administrador/home";
     }
 
+    //Muestra el mantenedor de los usuarios
     @GetMapping("/users")
     public String users(Model model){
         List<Usuario> usuarios = iUsuarioService.findAll();
@@ -43,6 +44,7 @@ public class AministradorController {
         return "administrador/usuarios";
     }
 
+    //Muestra el mantenedor de las ordenes
     @GetMapping("/orders")
     public String orders(Model model){
 
@@ -50,6 +52,7 @@ public class AministradorController {
         return "administrador/ordenes";
     }
 
+    //Muestra el detalle de alguna orden en especifico
     @GetMapping("/detalle/{idOrden}")
     public String detalle(@PathVariable Integer idOrden, Model model){
         Orden orden = iOrdenService.findById(idOrden).get();

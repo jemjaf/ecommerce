@@ -39,6 +39,4 @@ public class ProductoServiceImp implements IProductoService {
         return IProductoRepository.findAll();
     }
 
-
-
 }

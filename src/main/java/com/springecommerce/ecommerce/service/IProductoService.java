@@ -1,14 +1,20 @@
-package com.springecommerce.ecommerce.service;
+    package com.springecommerce.ecommerce.service;
 
-import com.springecommerce.ecommerce.model.Producto;
+    import com.springecommerce.ecommerce.model.Producto;
 
-import java.util.List;
-import java.util.Optional;
+    import java.util.List;
+    import java.util.Optional;
 
-public interface IProductoService {
-    public Producto save(Producto producto);
-    public Optional<Producto> get(Integer id);
-    public void update(Producto producto);
-    public void delete(Integer id);
-    public List<Producto> findAll();
-}
+    public interface IProductoService {
+
+        Producto save(Producto producto);
+
+        Optional<Producto> get(Integer id);
+
+        void update(Producto producto);
+
+        void delete(Integer id);
+
+        List<Producto> findAll();
+
+    }

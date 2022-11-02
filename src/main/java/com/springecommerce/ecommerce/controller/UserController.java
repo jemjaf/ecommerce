@@ -51,7 +51,6 @@ public class UserController {
     @PostMapping("/login")
     public String login(@RequestParam("username") String username, HttpSession httpSession){
         Optional<Usuario> user = iUsuarioService.findByEmail(username);
-        //LOGGER.info("XDDDD {}", user.get());
 
         if (user.isPresent()){
             httpSession.setAttribute("idUsuario", user.get().getId());
@@ -65,6 +64,7 @@ public class UserController {
         }
     }
 
+    //Muestra las compras realizadas por el usuario logeado
     @GetMapping("/compras")
     public String compras(Model model, HttpSession httpSession){
         Usuario user = iUsuarioService.findById(Integer.parseInt(httpSession.getAttribute("idUsuario").toString())).get();
@@ -75,6 +75,7 @@ public class UserController {
         return "usuario/compras";
     }
 
+    //Muestra el detalle de una compra ya realizada por el usuario logeado
     @GetMapping("/detalle/{idOrden}")
     public String detalle(@PathVariable Integer idOrden, Model model, HttpSession httpSession){
         Orden orden = iOrdenService.findById(idOrden).get();
@@ -86,6 +87,7 @@ public class UserController {
 
     }
 
+    //Cierra la sesión
     @GetMapping("/logout")
     public String logout(HttpSession httpSession){
         httpSession.removeAttribute("idUsuario");

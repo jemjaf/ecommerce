@@ -5,7 +5,6 @@ import com.springecommerce.ecommerce.model.Usuario;
 import com.springecommerce.ecommerce.service.IProductoService;
 import com.springecommerce.ecommerce.service.IUsuarioService;
 import com.springecommerce.ecommerce.service.UploadFileService;
-import org.slf4j.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,8 +17,6 @@ import java.io.IOException;
 @Controller
 @RequestMapping("/productos")
 public class ProductoController {
-
-    private final Logger LOGGER = LoggerFactory.getLogger(ProductoController.class);
 
     @Autowired
     public IUsuarioService iUsuarioService;
