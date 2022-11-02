@@ -43,9 +43,10 @@
         <div th:each="producto:${productos}" class="col-lg-3 col-md-6 mb-4">
           <div class="card h-100">
             <div class="card-body">
-              <p class="card-text" th:text="${producto.nombre}"></p>
+              <h4 class="card-text" th:text="${producto.nombre}"></h4>
               <img class="card-img-top" th:src="@{/images/{img} (img = ${producto.imagen})}" alt="">
             </div>
+              <h4 class="card-text" th:text="${producto.precio}"></h4>
             <div class="card-footer">
               <a th:href="@{/productohome/{id} (id=${producto.id})}" class="btn btn-success">Ver producto</a>
             </div>

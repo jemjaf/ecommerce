@@ -55,7 +55,7 @@ public class ProductoController {
 
 
         iProductoService.save(producto);
-        return "redirect:/productos";
+        return "redirect:/productos/";
     }
 
     //Vista para editar un producto

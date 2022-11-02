@@ -43,13 +43,6 @@ public class AministradorController {
         return "administrador/usuarios";
     }
 
-    @GetMapping("/productos")
-    public String Crudproductos(Model model){
-        model.addAttribute("productos", iProductoService.findAll());
-
-        return "productos/show";
-    }
-
     @GetMapping("/orders")
     public String orders(Model model){
 

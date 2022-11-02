@@ -31,7 +31,7 @@
 
       <!-- Jumbotron Header -->
       <header class="jumbotron my-4">
-        <h1 class="display-3">Bienvenidos a Jean eCommerce 2022</h1>
+        <h1 class="display-3">ADMINISTRADOR de Jean eCommerce</h1>
         <p class="lead">Tu tienda de productos en Línea</p>
       </header>
 
@@ -41,11 +41,13 @@
         <div th:each="producto:${productos}" class="col-lg-3 col-md-6 mb-4">
           <div class="card h-100">
             <div class="card-body">
-              <p class="card-text" th:text="${producto.nombre}"></p>
+              <h4 class="card-text" th:text="${producto.nombre}"></h4>
               <img class="card-img-top" th:src="@{/images/{img} (img = ${producto.imagen})}" alt="">
+
             </div>
+            <h4 class="card-text" th:text="${producto.precio}"></h4>
             <div class="card-footer">
-              <a href="#" class="btn btn-success">Ver producto</a>
+              <a th:href="@{/productos/edit/{id} (id=${producto.id})}" class="btn btn-success">Editar producto</a>
             </div>
           </div>
         </div>
